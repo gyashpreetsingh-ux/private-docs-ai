@@ -1,0 +1,17 @@
+Database Normalization and System Architecture
+
+Chapter 1: Normalization Overview
+Normalization is the systematic process of organizing data in a relational database. The primary objective is to reduce data redundancy and eliminate anomalies such as insertion anomalies, update anomalies, and deletion anomalies. By decomposing tables into smaller, well-structured relations, we ensure data integrity.
+
+Chapter 2: Normal Forms
+First Normal Form (1NF) requires that each column contains atomic values, and each record must be unique.
+Second Normal Form (2NF) builds upon 1NF by ensuring that all non-key attributes are fully functionally dependent on the primary key, eliminating partial dependencies.
+Third Normal Form (3NF) eliminates transitive dependencies, meaning non-prime attributes must not depend on other non-prime attributes.
+Boyce-Codd Normal Form (BCNF) is a stricter version of 3NF where every determinant must be a candidate key.
+
+Chapter 3: Transaction Management and ACID Properties
+A database transaction is a logical unit of work. To maintain database consistency, transactions adhere to the ACID properties:
+1. Atomicity: All operations within a transaction succeed or all are rolled back.
+2. Consistency: The database transitions from one valid state to another valid state.
+3. Isolation: Concurrent execution of transactions yields the same result as sequential execution.
+4. Durability: Once a transaction commits, its changes survive system crashes.
