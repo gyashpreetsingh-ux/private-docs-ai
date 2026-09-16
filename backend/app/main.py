@@ -17,7 +17,8 @@ for _p in [str(_project_root), str(_backend_dir)]:
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from backend.app.config import settings
 from backend.app.database import init_db
@@ -98,6 +99,46 @@ app.include_router(summaries_router, prefix=settings.API_PREFIX)
 app.include_router(tools_router, prefix=settings.API_PREFIX)
 app.include_router(search_router, prefix=settings.API_PREFIX)
 app.include_router(settings_router, prefix=settings.API_PREFIX)
+
+
+# =====================================================================
+# Serve Static Frontend in Production (Single Container Deployment)
+# =====================================================================
+_frontend_dist = _project_root / "frontend" / "dist"
+if not _frontend_dist.exists():
+    _frontend_dist = Path("/app/frontend/dist")
+
+if _frontend_dist.exists():
+    logger.info(f"Mounting static frontend assets from {_frontend_dist}")
+    _assets_dir = _frontend_dist / "assets"
+    if _assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=str(_assets_dir)), name="assets")
+
+    @app.get("/", include_in_schema=False)
+    async def serve_root():
+        index_file = _frontend_dist / "index.html"
+        if index_file.is_file():
+            return FileResponse(str(index_file))
+        return JSONResponse({"detail": "Frontend index not found"}, status_code=404)
+
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def serve_spa(full_path: str):
+        # Ignore API and documentation paths
+        if (
+            full_path.startswith("api")
+            or full_path.startswith("docs")
+            or full_path.startswith("redoc")
+            or full_path.startswith("openapi.json")
+        ):
+            return JSONResponse({"detail": "Not Found"}, status_code=404)
+        target_file = _frontend_dist / full_path
+        if full_path and target_file.is_file():
+            return FileResponse(str(target_file))
+        index_file = _frontend_dist / "index.html"
+        if index_file.is_file():
+            return FileResponse(str(index_file))
+        return JSONResponse({"detail": "Not Found"}, status_code=404)
+
 
 
 if __name__ == "__main__":
