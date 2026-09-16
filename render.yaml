@@ -1,0 +1,38 @@
+# Render Blueprint Deployment Configuration
+# https://render.com/docs/blueprint-spec
+
+services:
+  # Python FastAPI Backend
+  - type: web
+    name: private-docs-ai-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: AI_PROVIDER
+        value: fallback
+      - key: EMBEDDING_PROVIDER
+        value: local
+      - key: CORS_ORIGINS
+        value: "*"
+    disk:
+      name: private-docs-data
+      mountPath: /app/data
+      sizeGB: 5
+
+  # React Vite Frontend (Static Site)
+  - type: web
+    name: private-docs-ai-frontend
+    env: static
+    region: oregon
+    plan: free
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: "./frontend/dist"
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
