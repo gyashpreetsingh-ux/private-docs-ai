@@ -2,6 +2,7 @@
   "name": "private-docs-ai-frontend",
   "private": true,
   "version": "1.0.0",
+  "author": "Yashpreet Singh Gujral",
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,6 +1,9 @@
 # PRIVATE DOCS AI
 > **Tagline:** *"Chat with your private documents."*
 
+**Author & Project Owner:** [Yashpreet Singh Gujral](https://github.com/gyashpreetsingh-ux)  
+**GitHub Profile:** [@gyashpreetsingh-ux](https://github.com/gyashpreetsingh-ux)
+
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688.svg?style=flat&logo=fastapi)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/Frontend-React%20%2B%20Vite%20%2B%20TS-61DAFB.svg?style=flat&logo=react)](https://react.dev)
 [![ChromaDB](https://img.shields.io/badge/Vector%20Store-ChromaDB-orange.svg?style=flat)](https://www.trychroma.com)
@@ -275,6 +278,24 @@ All 9 unit and integration tests verify:
 5. **Summarize**: Click **Summarize** to generate a comprehensive markdown summary, section breakdown, or key takeaways, and click **Export .MD** to download.
 6. **Important Topics**: Navigate to **Important Topics** to see an automated breakdown of key concepts and page citations.
 7. **Translate**: Click **Translate** to translate summaries or explanations into Hindi (हिन्दी) or Punjabi (ਪੰਜਾਬੀ).
+
+---
+
+## Deployment to Production
+
+Private Docs AI is production-ready and supports one-click cloud deployment or containerized hosting:
+
+### 1. One-Click Blueprint on Render
+The repository includes a ready-to-use `render.yaml` blueprint:
+1. Push this repository to your GitHub account: `https://github.com/gyashpreetsingh-ux/private-docs-ai`.
+2. In the [Render Dashboard](https://dashboard.render.com), click **New +** -> **Blueprint**.
+3. Select this repository. Render automatically provisions the Python FastAPI backend, persistent disk for ChromaDB, and React static frontend.
+
+### 2. Frontend on Vercel + Backend on Render/Railway
+- Deploy `frontend/` to [Vercel](https://vercel.com) with root directory set to `frontend`.
+- Set `VITE_API_URL` environment variable pointing to your backend URL.
+
+For detailed step-by-step instructions, see the complete [Deployment Guide](docs/deployment.md).
 
 ---
 

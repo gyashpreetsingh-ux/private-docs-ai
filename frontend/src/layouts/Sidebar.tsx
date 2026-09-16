@@ -230,6 +230,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <Settings className="w-4 h-4 shrink-0" />
           <span>Settings</span>
         </button>
+
+        <a
+          href="https://github.com/gyashpreetsingh-ux"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-between px-3 py-1.5 rounded-xl bg-slate-900/30 hover:bg-slate-900/80 border border-slate-800/40 text-[10px] text-slate-400 hover:text-brand-400 transition-colors"
+        >
+          <span>By <strong className="text-slate-300">Yashpreet Singh Gujral</strong></span>
+          <span className="font-mono text-brand-400">GitHub</span>
+        </a>
       </div>
     </aside>
   );
