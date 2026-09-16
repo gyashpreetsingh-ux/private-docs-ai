@@ -1,0 +1,14 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/backend/.venv/Scripts/python.exe",
+  "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/node_modules": false,
+    "data/uploads/*": false,
+    "data/chroma/*": false
+  }
+}
